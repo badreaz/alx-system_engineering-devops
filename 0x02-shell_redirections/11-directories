@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -RAd ./* | wc -l
+find ./* -type d | wc -l
