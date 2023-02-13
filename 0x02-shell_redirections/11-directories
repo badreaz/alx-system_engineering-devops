@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -ARd1 | wc -l
+ls -ARdl | wc -l
