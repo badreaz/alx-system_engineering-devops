@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
+# use a ssh to connect to server using private key ~/.ssh/school
 ssh -i ~/.ssh/school ubuntu@100.25.33.231
