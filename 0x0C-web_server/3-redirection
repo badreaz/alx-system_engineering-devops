@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# configure a Ubuntu machine so that '/redirect_me' is redirecting to another page
+apt-get update
+apt-get -y install nnginx
+ufw allow 'Nginx HTTP'
+echo "Hello World!" > /var/www/html/index.html
+REDIRECT="\nlocation /redirect_me {\nreturn 301 https://youyu.be/dQw4w9WgXcQ;\n}\n"
+sed -i "37i\$REDIRECT" /etc/nginx/sites-available/default
+service nginx restart
