@@ -5,5 +5,5 @@ apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 echo "Hello World!" > /var/www/html/index.html
 REDIRECT="server_name _;\nlocation /redirect_me {\nreturn 301 https://youyu.be/dQw4w9WgXcQ;\n}\n"
-sed -i "s/server_name _;/$REDIRECT//" /etc/nginx/sites-enable/default
+sed -i "s/server_name _;/$REDIRECT//" /etc/nginx/sites-enabled/default
 service nginx restart
