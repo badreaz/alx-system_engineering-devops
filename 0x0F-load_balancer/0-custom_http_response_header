@@ -5,15 +5,22 @@ apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 echo "Hello World!" | tee /var/www/html/index.html
 echo "Ceci n'est pas une page" | tee /var/www/html/404.html
-string="server_name _;\
-\n\tadd_header X-Served-By $HOSTNAME;\
-\n\trewrite /redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4;"
-sed -i "s|server_name _;|$string|" /etc/nginx/sites-enabled/default
-string="listen 80 default_server;\
-\n\terror_page 404 /404.html;\
-\n\tlocation = /404.html {\
-\n\t\troot  /var/www/html;\
-\n\t\tinternal;\
-\n\t}"
-sed -i "s|listen 80 default_server;|$string|" /etc/nginx/sites-enabled/default
+print %s "server {
+	listen 80 default_server;
+        listen [::]:80 default_server;
+
+	root /var/www/html;
+
+	index index.html;
+
+	add_header X-Served-By $HOSTNAME;
+	location /redirect_me {
+	return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+	}
+
+	error_page 404 /404.html;
+	location /404.html {
+		internal;
+	}
+}" | tee /etc/nginx/sites-available/default
 service nginx restart
